@@ -9,13 +9,26 @@ function App() {
 
     const [appointments, setAppointments] = useState([]);
     const [showModal, setShowModal] = useState(false);
-
+    const [formData, setFormData] = useState({
+    patient_name: "",
+    doctor_name: "",
+    appointment_date: "",
+    appointment_time: "",
+    reason: "",
+    fee: "",
+    status: "Scheduled",
+});
     useEffect(() => {
         fetchAppointments();
     }, []);
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-
+    const handleChange = (e) => {
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+    });
+};
     const fetchAppointments = async () => {
         try {
             const res = await api.get("/appointments");
@@ -24,6 +37,33 @@ function App() {
             console.log(err);
         }
     };
+    const handleSubmit = async () => {
+
+    try {
+
+        await api.post("/appointments", formData);
+
+        fetchAppointments();
+
+        setShowModal(false);
+
+        setFormData({
+            patient_name: "",
+            doctor_name: "",
+            appointment_date: "",
+            appointment_time: "",
+            reason: "",
+            fee: "",
+            status: "Scheduled",
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
 
     return (
     <div className="container mt-5">
@@ -43,6 +83,9 @@ function App() {
         <AppointmentForm
             show={showModal}
             handleClose={handleClose}
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
         />
 
     </div>
