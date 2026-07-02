@@ -1,3 +1,6 @@
+import { Button } from "react-bootstrap";
+import AppointmentForm from "./components/AppointmentForm";
+
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import AppointmentTable from "./components/AppointmentTable";
@@ -5,10 +8,13 @@ import AppointmentTable from "./components/AppointmentTable";
 function App() {
 
     const [appointments, setAppointments] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         fetchAppointments();
     }, []);
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     const fetchAppointments = async () => {
         try {
@@ -20,16 +26,27 @@ function App() {
     };
 
     return (
-        <div className="container mt-5">
+    <div className="container mt-5">
 
-            <h2 className="text-center mb-4">
-                Appointment Booking System
-            </h2>
+        <div className="d-flex justify-content-between align-items-center mb-4">
 
-            <AppointmentTable appointments={appointments} />
+            <h2>Appointment Booking System</h2>
+
+            <Button onClick={handleShow}>
+                + Add Appointment
+            </Button>
 
         </div>
-    );
+
+        <AppointmentTable appointments={appointments} />
+
+        <AppointmentForm
+            show={showModal}
+            handleClose={handleClose}
+        />
+
+    </div>
+);
 }
 
 export default App;
