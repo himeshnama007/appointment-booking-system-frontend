@@ -1,4 +1,25 @@
 function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
+    const calculateDaysLeft = (date) => {
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const appointmentDate = new Date(date);
+
+    appointmentDate.setHours(0, 0, 0, 0);
+
+    const diff = appointmentDate - today;
+
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+    if (days < 0) return "Passed";
+
+    if (days === 0) return "Today";
+
+    return `${days} Days`;
+
+};
     return (
         <div className="table-responsive mt-4">
             <table className="table table-bordered table-hover">
@@ -10,6 +31,7 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
+                        <th>Days Left</th>
                         <th>Fee</th>
                         <th>Actions</th>
                     </tr>
@@ -30,8 +52,9 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                                 <td>{appointment.doctor_name}</td>
                                 <td>{appointment.appointment_date}</td>
                                 <td>{appointment.appointment_time}</td>
-                                <td>{appointment.status}</td>
-                                <td>₹ {appointment.fee}</td>
+                               <td>{appointment.status}</td>
+                               <td>{calculateDaysLeft(appointment.appointment_date)}</td>
+                               <td>₹ {appointment.fee}</td>
                                 <td> 
                                      <button
                                         className="btn btn-warning btn-sm"
