@@ -1,29 +1,29 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
-    const calculateDaysLeft = (date) => {
+    const getDaysBadge = (date) => {
 
     const today = new Date();
-
     today.setHours(0, 0, 0, 0);
 
-    const appointmentDate = new Date(date);
+    const appointment = new Date(date);
+    appointment.setHours(0, 0, 0, 0);
 
-    appointmentDate.setHours(0, 0, 0, 0);
+    const diff = Math.ceil(
+        (appointment - today) / (1000 * 60 * 60 * 24)
+    );
 
-    const diff = appointmentDate - today;
+    if (diff < 0)
+        return <span className="badge bg-danger">Passed</span>;
 
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    if (diff === 0)
+        return <span className="badge bg-warning text-dark">Today</span>;
 
-    if (days < 0) return "Passed";
-
-    if (days === 0) return "Today";
-
-    return `${days} Days`;
-
+    return <span className="badge bg-success">{diff} Days</span>;
 };
     return (
-        <div className="table-responsive mt-4">
-            <table className="table table-bordered table-hover">
+        <div className="card shadow mt-4">
+           <div className="table-responsive">
+            <table className="table table-hover mb-0">
                 <thead className="table-dark">
                     <tr>
                         <th>ID</th>
@@ -66,7 +66,7 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                                     {appointment.status}
                                     </span>
                                 </td>
-                               <td>{calculateDaysLeft(appointment.appointment_date)}</td>
+                               <td>{getDaysBadge(appointment.appointment_date)}</td>
                                <td>₹ {appointment.fee}</td>
                                 <td> 
                                      <button
@@ -88,6 +88,7 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                     )}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 }
