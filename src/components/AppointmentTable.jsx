@@ -41,8 +41,11 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                 <tbody>
                     {appointments.length === 0 ? (
                         <tr>
-                            <td colSpan="7" className="text-center">
-                                No Appointments Found
+                            <td colSpan="9" className="text-center py-5">
+                                <h5>📅 No Appointments Found</h5>
+                                <p className="text-muted mb-0">
+                                    Click "Add Appointment" to create one.
+                                </p>
                             </td>
                         </tr>
                     ) : (
