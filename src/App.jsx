@@ -5,6 +5,7 @@ import AppointmentForm from "./components/AppointmentForm";
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import AppointmentTable from "./components/AppointmentTable";
+import DeleteModal from "./components/DeleteModal";
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [formData, setFormData] = useState({
     patient_name: "",
     doctor_name: "",
@@ -145,26 +147,39 @@ function App() {
     }
 
 };
-    const handleDelete = async (id) => {
+    const handleDeleteClick = (id) => {
 
-    const confirmDelete = window.confirm(
-        "Are you sure you want to delete this appointment?"
-    );
+    setDeleteId(id);
 
-    if (!confirmDelete) return;
+    setShowDeleteModal(true);
+
+};
+    const confirmDelete = async () => {
 
     try {
 
-        await api.delete(`/appointments/${id}`);
+        await api.delete(`/appointments/${deleteId}`);
+
+        toast.success("Appointment Deleted Successfully");
 
         await fetchAppointments();
-        toast.success("Appointment Deleted Successfully");
+
+        setDeleteId(null);
+
+        setShowDeleteModal(false);
 
     } catch (err) {
 
         console.log(err);
 
     }
+
+};
+    const handleDeleteClose = () => {
+
+    setDeleteId(null);
+
+    setShowDeleteModal(false);
 
 };
     return (
@@ -183,7 +198,7 @@ function App() {
        <AppointmentTable
             appointments={appointments}
             handleEdit={handleEdit}
-            handleDelete={handleDelete}
+           handleDelete={handleDeleteClick}
         />
 
         <AppointmentForm
@@ -193,6 +208,11 @@ function App() {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             editingId={editingId}
+        />
+        <DeleteModal
+            show={showDeleteModal}
+            handleClose={handleDeleteClose}
+            handleDelete={confirmDelete}
         />
         <ToastContainer
             position="top-right"
