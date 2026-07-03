@@ -26,6 +26,7 @@ function AppointmentForm({ show,
                             value={formData.patient_name}
                             onChange={handleChange}
                             placeholder="Enter patient name"
+                            required
                         />
                     </Form.Group>
 
@@ -36,6 +37,7 @@ function AppointmentForm({ show,
                             name="doctor_name"
                             value={formData.doctor_name}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -46,6 +48,7 @@ function AppointmentForm({ show,
                             name="appointment_date"
                             value={formData.appointment_date}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -55,6 +58,7 @@ function AppointmentForm({ show,
                             name="appointment_time"
                             value={formData.appointment_time}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 
@@ -76,6 +80,7 @@ function AppointmentForm({ show,
                             name="fee"
                             value={formData.fee}
                             onChange={handleChange}
+                            required
                         />
                     </Form.Group>
 

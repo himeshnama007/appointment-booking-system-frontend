@@ -74,6 +74,35 @@ function App() {
 
 };
     const handleSubmit = async () => {
+    // Required fields
+    if (
+        !formData.patient_name.trim() ||
+        !formData.doctor_name.trim() ||
+        !formData.appointment_date ||
+        !formData.appointment_time ||
+        formData.fee === ""
+    ) {
+        toast.error("Please fill all required fields");
+        return;
+    }
+
+    // Fee validation
+    if (Number(formData.fee) < 0) {
+        toast.error("Fee cannot be negative");
+        return;
+    }
+
+    // Date validation
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const selectedDate = new Date(formData.appointment_date);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+        toast.error("Appointment date cannot be in the past");
+        return;
+    }
 
     try {
 
