@@ -1,3 +1,4 @@
+import { FaEdit, FaTrash } from "react-icons/fa";
 function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
     const calculateDaysLeft = (date) => {
 
@@ -52,7 +53,19 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                                 <td>{appointment.doctor_name}</td>
                                 <td>{appointment.appointment_date}</td>
                                 <td>{appointment.appointment_time}</td>
-                               <td>{appointment.status}</td>
+                                <td>
+                                  <span
+                                    className={`badge ${
+                                      appointment.status === "Scheduled"
+                                        ? "bg-success"
+                                        : appointment.status === "Completed"
+                                        ? "bg-primary"
+                                        : "bg-danger"
+                                    }`}
+                                  >
+                                    {appointment.status}
+                                    </span>
+                                </td>
                                <td>{calculateDaysLeft(appointment.appointment_date)}</td>
                                <td>₹ {appointment.fee}</td>
                                 <td> 
@@ -60,13 +73,13 @@ function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
                                         className="btn btn-warning btn-sm"
                                         onClick={() => handleEdit(appointment)}
                                     >
-                                         Edit
+                                        <FaEdit/> Edit
                                     </button>
                                     <button
                                         className="btn btn-danger btn-sm ms-2"
                                         onClick={() => handleDelete(appointment.appointment_id)}
                                     >
-                                        Delete
+                                        <FaTrash/>Delete
                                     </button>
                                 </td>
                                 
