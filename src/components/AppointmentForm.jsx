@@ -5,11 +5,14 @@ function AppointmentForm({ show,
     formData,
     handleChange,
     handleSubmit,
+    editingId,
  }) {
     return (
         <Modal show={show} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
-                <Modal.Title>Add Appointment</Modal.Title>
+               <Modal.Title>
+                    {editingId ? "Edit Appointment" : "Add Appointment"}
+                </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -99,7 +102,7 @@ function AppointmentForm({ show,
 
                 <Button variant="primary"
                      onClick={handleSubmit}>
-                    Save Appointment
+                    {editingId ? "Update Appointment" : "Save Appointment"}
                 </Button>
             </Modal.Footer>
         </Modal>

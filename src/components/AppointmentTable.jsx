@@ -1,4 +1,4 @@
-function AppointmentTable({ appointments }) {
+function AppointmentTable({ appointments, handleEdit }) {
     return (
         <div className="table-responsive mt-4">
             <table className="table table-bordered table-hover">
@@ -11,6 +11,7 @@ function AppointmentTable({ appointments }) {
                         <th>Time</th>
                         <th>Status</th>
                         <th>Fee</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
@@ -31,6 +32,14 @@ function AppointmentTable({ appointments }) {
                                 <td>{appointment.appointment_time}</td>
                                 <td>{appointment.status}</td>
                                 <td>₹ {appointment.fee}</td>
+                                <td> 
+                                     <button
+                                        className="btn btn-warning btn-sm"
+                                        onClick={() => handleEdit(appointment)}
+                                    >
+                                         Edit
+                                    </button>
+                                </td>
                             </tr>
                         ))
                     )}

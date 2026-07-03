@@ -9,6 +9,7 @@ function App() {
 
     const [appointments, setAppointments] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [editingId, setEditingId] = useState(null);
     const [formData, setFormData] = useState({
     patient_name: "",
     doctor_name: "",
@@ -21,7 +22,23 @@ function App() {
     useEffect(() => {
         fetchAppointments();
     }, []);
-    const handleShow = () => setShowModal(true);
+    const handleShow = () => {
+
+    setEditingId(null);
+
+    setFormData({
+        patient_name: "",
+        doctor_name: "",
+        appointment_date: "",
+        appointment_time: "",
+        reason: "",
+        fee: "",
+        status: "Scheduled",
+    });
+
+    setShowModal(true);
+
+};
     const handleClose = () => setShowModal(false);
     const handleChange = (e) => {
     setFormData({
@@ -37,15 +54,48 @@ function App() {
             console.log(err);
         }
     };
+    const handleEdit = (appointment) => {
+
+    setEditingId(appointment.appointment_id);
+
+    setFormData({
+        patient_name: appointment.patient_name,
+        doctor_name: appointment.doctor_name,
+        appointment_date: appointment.appointment_date,
+        appointment_time: appointment.appointment_time,
+        reason: appointment.reason,
+        fee: appointment.fee,
+        status: appointment.status,
+    });
+
+    setShowModal(true);
+
+};
     const handleSubmit = async () => {
 
     try {
 
-        await api.post("/appointments", formData);
+        if (editingId) {
 
-        fetchAppointments();
+            await api.put(
+                `/appointments/${editingId}`,
+                formData
+            );
+
+        } else {
+
+            await api.post(
+                "/appointments",
+                formData
+            );
+
+        }
+
+        await fetchAppointments();
 
         setShowModal(false);
+
+        setEditingId(null);
 
         setFormData({
             patient_name: "",
@@ -64,7 +114,6 @@ function App() {
     }
 
 };
-
     return (
     <div className="container mt-5">
 
@@ -78,7 +127,7 @@ function App() {
 
         </div>
 
-        <AppointmentTable appointments={appointments} />
+       <AppointmentTable appointments={appointments} handleEdit={handleEdit}/>
 
         <AppointmentForm
             show={showModal}
@@ -86,8 +135,8 @@ function App() {
             formData={formData}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            editingId={editingId}
         />
-
     </div>
 );
 }
