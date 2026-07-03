@@ -1,4 +1,4 @@
-function AppointmentTable({ appointments, handleEdit }) {
+function AppointmentTable({ appointments, handleEdit, handleDelete, }) {
     return (
         <div className="table-responsive mt-4">
             <table className="table table-bordered table-hover">
@@ -39,7 +39,14 @@ function AppointmentTable({ appointments, handleEdit }) {
                                     >
                                          Edit
                                     </button>
+                                    <button
+                                        className="btn btn-danger btn-sm ms-2"
+                                        onClick={() => handleDelete(appointment.appointment_id)}
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
+                                
                             </tr>
                         ))
                     )}

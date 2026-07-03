@@ -10,6 +10,7 @@ function App() {
     const [appointments, setAppointments] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingId, setEditingId] = useState(null);
+    const [deleteId, setDeleteId] = useState(null);
     const [formData, setFormData] = useState({
     patient_name: "",
     doctor_name: "",
@@ -114,6 +115,27 @@ function App() {
     }
 
 };
+    const handleDelete = async (id) => {
+
+    const confirmDelete = window.confirm(
+        "Are you sure you want to delete this appointment?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+        await api.delete(`/appointments/${id}`);
+
+        await fetchAppointments();
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+};
     return (
     <div className="container mt-5">
 
@@ -127,7 +149,11 @@ function App() {
 
         </div>
 
-       <AppointmentTable appointments={appointments} handleEdit={handleEdit}/>
+       <AppointmentTable
+            appointments={appointments}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+        />
 
         <AppointmentForm
             show={showModal}
