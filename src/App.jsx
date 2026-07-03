@@ -1,3 +1,4 @@
+import { ToastContainer, toast } from "react-toastify";
 import { Button } from "react-bootstrap";
 import AppointmentForm from "./components/AppointmentForm";
 
@@ -82,14 +83,14 @@ function App() {
                 `/appointments/${editingId}`,
                 formData
             );
-
+            toast.success("Appointment Updated Successfully");
         } else {
 
             await api.post(
                 "/appointments",
                 formData
             );
-
+            toast.success("Appointment Added Successfully");
         }
 
         await fetchAppointments();
@@ -128,6 +129,7 @@ function App() {
         await api.delete(`/appointments/${id}`);
 
         await fetchAppointments();
+        toast.success("Appointment Deleted Successfully");
 
     } catch (err) {
 
@@ -162,6 +164,10 @@ function App() {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             editingId={editingId}
+        />
+        <ToastContainer
+            position="top-right"
+            autoClose={2000}
         />
     </div>
 );
