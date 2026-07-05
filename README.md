@@ -92,7 +92,13 @@ Backend Repository:
 https://github.com/himeshnama007/appointment-booking-system-backend
 
 ---
+## 📸 Screenshots
 
+### Home Page
+
+![Home Page](./screenshots/homepage.png)
+
+---
 
 ## 👨‍💻 Author
 
