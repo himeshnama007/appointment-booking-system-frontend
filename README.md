@@ -1,16 +1,102 @@
-# React + Vite
+# 🏥 Appointment Booking System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based frontend for the Appointment Booking System. This application allows users to manage appointments with an intuitive and responsive interface.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- ➕ Add new appointments
+- ✏️ Edit existing appointments
+- 🗑️ Delete appointments with confirmation modal
+- 📅 Days Left calculation
+- ✅ Status badges (Scheduled, Completed, Cancelled)
+- 🔔 Toast notifications
+- ✔️ Form validation
+- 📱 Responsive Bootstrap UI
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- React.js
+- Vite
+- Bootstrap
+- React Bootstrap
+- Axios
+- React Toastify
+- React Icons
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📂 Folder Structure
+
+```
+src/
+│── components/
+│   ├── AppointmentForm.jsx
+│   ├── AppointmentTable.jsx
+│   └── DeleteModal.jsx
+│
+│── services/
+│   └── api.js
+│
+│── App.jsx
+│── main.jsx
+```
+
+---
+
+## ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/himeshnama007/appointment-booking-system-frontend.git
+```
+
+Go to project folder
+
+```bash
+cd appointment-booking-system-frontend
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the application
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🔗 Backend Repository
+
+Backend API:
+
+```
+http://localhost:5000
+```
+
+Backend Repository:
+
+https://github.com/himeshnama007/appointment-booking-system-backend
+
+---
+
+
+## 👨‍💻 Author
+
+**Himesh Nama**
+
+GitHub:
+https://github.com/himeshnama007
